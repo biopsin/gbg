@@ -34,6 +34,9 @@ void render_for_screen(Display *disp, int screen_index) {
     // Don't operate on a full size image, gradient production is slow
     unsigned int img_height = height / 4;
     unsigned int img_width = width / 4;
+    
+    // Randomize angle on each run (±180°)
+    signed int img_angle = (double) (rand() % 180);
 
     rgb color1;
     rgb color2;
@@ -66,7 +69,7 @@ void render_for_screen(Display *disp, int screen_index) {
     // Second
     imlib_context_set_color(color2.r, color2.g, color2.b, 255);
     imlib_add_color_to_color_range(img_height);
-    imlib_image_fill_color_range_rectangle(0, 0, img_width, img_height, -45.0);
+    imlib_image_fill_color_range_rectangle(0, 0, img_width, img_height, img_angle);
 
     // Render our smaller image to the size of the screen
     imlib_render_image_on_drawable_at_size(0, 0, width, height);
