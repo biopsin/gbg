@@ -91,6 +91,7 @@ void render_for_screen(Display *disp, int screen_index) {
     XFlush(disp);
     XSync(disp, False);
 
+// Fix for compositor managers 
 #ifndef NO_FINAL_FREE
     XFreePixmap(disp, pixmap);
 #endif
