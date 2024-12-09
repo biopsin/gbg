@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+# Reload gbg daemon
+# Snore function borrowed from
+# https://blog.dhampir.no/content/sleeping-without-a-subprocess-in-bash-and-how-to-sleep-forever
+snore()
+{
+    local IFS
+    [[ -n "${_snore_fd:-}" ]] || exec {_snore_fd}<> <(:)
+    read ${1:+-t "$1"} -u $_snore_fd || :
+}
+
+while gbg; do
+    snore 300                   # randomize every 5min
+done
